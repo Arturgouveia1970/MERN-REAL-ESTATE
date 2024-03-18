@@ -26,7 +26,7 @@ function Profile() {
     if (file) {
       handleFileUpload();
     }
-  }, [file]);
+  }, []);
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);

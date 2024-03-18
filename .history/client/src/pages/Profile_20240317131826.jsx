@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import {
-  getDownloadURL,
+  // getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
@@ -12,9 +12,8 @@ function Profile() {
   const { currentUser } = useSelector((state) => state.user);
   const[file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
-  const [fileUploadError, setFileUploadError] = useState(false);
-  const [formData, setFormData] = useState({})
-  console.log(formData)
+  console.log(file)
+  console.log(file);
 
   // firebase storage
   // allow read;
@@ -34,18 +33,22 @@ function Profile() {
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed', (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
         setFilePerc(Math.round(progress));
       },
-      (error) => {
-        setFileUploadError(true);
-       },
-       () => {
-         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, avatar: downloadURL })
-        );
-      }
+      // (error) => {
+      //   setFileUploadError(true);
+      // },
+      // () => {
+      //   getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+      //     setFormData({ ...formData, avatar: downloadURL })
+      //   );
+      // }
     );
   };
 
@@ -68,19 +71,6 @@ function Profile() {
           alt='profile' 
           className='rounded-full h-24 w-24 object-cover mx-auto cursor-pointer' 
         />
-         <p className='text-sm self-center'>
-          {fileUploadError ? (
-            <span className='text-red-700'>
-              Error Image upload (image must be less than 2 mb)
-            </span>
-          ) : filePerc > 0 && filePerc < 100 ? (
-            <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
-          ) : filePerc === 100 ? (
-            <span className='text-green-700'>Image successfully uploaded!</span>
-          ) : (
-            ''
-          )}
-        </p>
         <input
           type='text'
           placeholder='username'
