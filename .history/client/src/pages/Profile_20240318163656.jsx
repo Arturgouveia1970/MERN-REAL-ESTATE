@@ -146,8 +146,7 @@ function Profile() {
         <span className='text-red-700 cursor-pointer'>Delete Account</span>
         <span className='text-red-700 cursor-pointer'>Sign Out</span>
       </div>
-     <p className='text-red-500 mt-5'>{error ? error : ''}</p>
-      <p className='text-green-500 mt-5'>{updateSuccess ? 'Profile updated successfully' : ''}</p>
+     <p>{}</p> 
     </div>
   )
 }
