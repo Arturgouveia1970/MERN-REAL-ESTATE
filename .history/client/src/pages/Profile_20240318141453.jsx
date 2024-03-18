@@ -34,9 +34,7 @@ function Profile() {
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      'state_changed', 
-      (snapshot) => {
+    uploadTask.on('state_changed', (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
@@ -66,7 +64,7 @@ function Profile() {
         />
         <img 
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar} 
+          src={currentUser.avatar} 
           alt='profile' 
           className='rounded-full h-24 w-24 object-cover mx-auto cursor-pointer' 
         />

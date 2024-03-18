@@ -66,7 +66,7 @@ function Profile() {
         />
         <img 
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar} 
+          src={currentUser.avatar} 
           alt='profile' 
           className='rounded-full h-24 w-24 object-cover mx-auto cursor-pointer' 
         />
