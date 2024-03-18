@@ -7,9 +7,7 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
-import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure,
-  deleteUserStart,
-  deleteUserSuccess } from '../redux/user/userSlice';
+import { updateUserFailure, updateUserStart, updateUserSuccess,  } from '../redux/user/userSlice';
 function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
