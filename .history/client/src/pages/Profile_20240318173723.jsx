@@ -9,8 +9,7 @@ import {
 import { app } from '../firebase';
 import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure,
   deleteUserStart,
-  deleteUserSuccess, 
-  signOutUserStart} from '../redux/user/userSlice';
+  deleteUserSuccess } from '../redux/user/userSlice';
 function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);

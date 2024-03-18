@@ -9,8 +9,7 @@ import {
 import { app } from '../firebase';
 import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure,
   deleteUserStart,
-  deleteUserSuccess, 
-  signOutUserStart} from '../redux/user/userSlice';
+  deleteUserSuccess } from '../redux/user/userSlice';
 function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -184,12 +183,9 @@ function Profile() {
         >
           Delete Account
         </span>
-        <span
-          onClick={handleSignOut} 
+        <span 
           className='text-red-700 cursor-pointer'
-        >
-          Sign Out
-        </span>
+        >Sign Out</span>
       </div>
      <p className='text-red-500 mt-5'>{error ? error : ''}</p>
       <p className='text-green-500 mt-5'>{updateSuccess ? 'Profile updated successfully' : ''}</p>
