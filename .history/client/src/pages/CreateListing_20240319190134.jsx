@@ -28,7 +28,7 @@ function CreateListing() {
   const [loading, setLoading] = useState(false);
   console.log(formData);
 
-  const handleImageSubmit = (e) => {
+  const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
       setImageUploadError(false);
@@ -279,32 +279,25 @@ function CreateListing() {
               />
               <div className="flex flex-col items-center">
                 <p>Regular price</p>
-                {formData.type === 'rent' && (
-                  <span className='text-xs'>($ / month)</span>
-                )}
+                <span className="text-xs">($ / month)</span>
               </div>              
             </div>
-            {formData.offer && (
-              <div className='flex items-center gap-2'>
-                <input
-                  type='number'
-                  id='discountPrice'
-                  min='0'
-                  max='10000000'
-                  required
-                  className='p-3 border border-gray-300 rounded-lg'
-                  onChange={handleChange}
-                  value={formData.discountPrice}
-                />
-                <div className='flex flex-col items-center'>
-                  <p>Discounted price</p>
-
-                  {formData.type === 'rent' && (
-                    <span className='text-xs'>($ / month)</span>
-                  )}
-                </div>
+            <div className="flex items-center gap-2">
+              <input
+                type='number'
+                className='border p-3 rounded-lg border-gray-300'
+                id='discountPrice'
+                min='0'
+                max='10000000'
+                required
+                onChange={handleChange}
+                value={formData.price}
+              />
+              <div className="flex flex-col items-center">
+                <p>Discounted price</p>
+                <span className="text-xs">($ / month)</span>
               </div>
-            )}
+            </div>
           </div>
 
         </div>
@@ -354,7 +347,6 @@ function CreateListing() {
               </div>
             ))}
           <button
-            disabled={loading}
             className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
           >
             {loading ?' Creating...' : 'Create Listing'}

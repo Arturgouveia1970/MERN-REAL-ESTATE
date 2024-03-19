@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
-  const navigate = useNavigate(); 
+  // const navigate = useNavigate(); 
   const [files, setFiles]= useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -143,7 +143,7 @@ function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${data._id}`);
+      // navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
