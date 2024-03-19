@@ -11,7 +11,6 @@ import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailur
   deleteUserStart,
   deleteUserSuccess, 
   signOutUserStart} from '../redux/user/userSlice';
-import { Link } from 'react-router-dom';
 function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
