@@ -56,7 +56,7 @@ export default function Profile() {
         setFilePerc(Math.round(progress));
       },
       (error) => {
-        setFileUploadError(true);
+        setFileUploadError(error.message);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>

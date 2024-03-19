@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
 import {
   getDownloadURL,
   getStorage,
@@ -7,33 +7,27 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
-import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-  deleteUserFailure,
+import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure,
   deleteUserStart,
-  deleteUserSuccess,
-  signOutUserStart,
-} from '../redux/user/userSlice';
-import { useDispatch } from 'react-redux';
+  deleteUserSuccess, 
+  signOutUserStart} from '../redux/user/userSlice';
 import { Link } from 'react-router-dom';
-export default function Profile() {
+function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
-  const [file, setFile] = useState(undefined);
+  const[file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
-  const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
+  console.log(formData)
 
   // firebase storage
   // allow read;
   // allow write: if
-  // request.resource.size < 2 * 1024 * 1024 &&
+  // request.resource.size < 2 * 1024 * 1024 && 
   // request.resource.contentType.matches('image/.*')
 
   useEffect(() => {
@@ -49,17 +43,16 @@ export default function Profile() {
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      'state_changed',
+      'state_changed', 
       (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
       (error) => {
         setFileUploadError(true);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+       },
+       () => {
+         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
           setFormData({ ...formData, avatar: downloadURL })
         );
       }
@@ -68,7 +61,7 @@ export default function Profile() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,7 +115,7 @@ export default function Profile() {
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(deleteUserFailure(data.message));
+      dispatch(deleteUserFailure(error.message));
     }
   };
 
@@ -160,10 +153,11 @@ export default function Profile() {
       console.log(error.message);
     }
   };
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type='file'
@@ -171,13 +165,13 @@ export default function Profile() {
           hidden
           accept='image/*'
         />
-        <img
+        <img 
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar}
-          alt='profile'
-          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+          src={formData.avatar || currentUser.avatar} 
+          alt='profile' 
+          className='rounded-full h-24 w-24 object-cover mx-auto cursor-pointer' 
         />
-        <p className='text-sm self-center'>
+         <p className='text-sm self-center'>
           {fileUploadError ? (
             <span className='text-red-700'>
               Error Image upload (image must be less than 2 mb)
@@ -227,21 +221,21 @@ export default function Profile() {
         </Link>
       </form>
       <div className='flex justify-between mt-5'>
-        <span
+      <span
           onClick={handleDeleteUser}
           className='text-red-700 cursor-pointer'
         >
-          Delete account
+          Delete Account
         </span>
-        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
-          Sign out
+        <span
+          onClick={handleSignOut} 
+          className='text-red-700 cursor-pointer'
+        >
+          Sign Out
         </span>
       </div>
-
-      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
-      <p className='text-green-700 mt-5'>
-        {updateSuccess ? 'User is updated successfully!' : ''}
-      </p>
+      <p className='text-red-500 mt-5'>{error ? error : ''}</p>
+      <p className='text-green-500 mt-5'>{updateSuccess ? 'Profile updated successfully' : ''}</p>
       <button onClick={handleShowListings} className='text-green-700 w-full'>
         Show Listings
       </button>
@@ -286,8 +280,8 @@ export default function Profile() {
               </div>
             </div>
           ))}
-        </div>
-      )}
     </div>
-  );
+  )
 }
+
+export default Profile
