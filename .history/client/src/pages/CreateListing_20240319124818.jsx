@@ -26,8 +26,8 @@ function CreateListing() {
 
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
-      setUploading(true);
-      setImageUploadError(false);
+      // setUploading(true);
+      // setImageUploadError(false);
       const promises = [];
 
       for (let i = 0; i < files.length; i++) {
@@ -44,7 +44,7 @@ function CreateListing() {
         })
         .catch((err) => {
           setImageUploadError('Image upload failed (2 mb max per image)');
-          // setUploading(false);
+          setUploading(false);
         });
     } else {
       setImageUploadError('You can only upload 6 images per listing');
@@ -250,11 +250,11 @@ function CreateListing() {
             />
             <button
                type='button'
-               disabled={uploading}
+               // disabled={uploading}
                onClick={handleImageSubmit}
               className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'
             >
-              {uploading ? 'UpLoading...' : 'Upload'}
+              {uploading}
             </button>
           </div>
           <p className='text-red-700 text-sm'>

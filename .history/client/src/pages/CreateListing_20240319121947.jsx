@@ -26,8 +26,8 @@ function CreateListing() {
 
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
-      setUploading(true);
-      setImageUploadError(false);
+      // setUploading(true);
+      // setImageUploadError(false);
       const promises = [];
 
       for (let i = 0; i < files.length; i++) {
@@ -44,7 +44,7 @@ function CreateListing() {
         })
         .catch((err) => {
           setImageUploadError('Image upload failed (2 mb max per image)');
-          // setUploading(false);
+          setUploading(false);
         });
     } else {
       setImageUploadError('You can only upload 6 images per listing');
@@ -74,13 +74,6 @@ function CreateListing() {
           });
         }
       );
-    });
-  };
-
-  const handleRemoveImage = (index) => {
-    setFormData({
-      ...formData,
-      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
     });
   };
 
@@ -250,42 +243,19 @@ function CreateListing() {
             />
             <button
                type='button'
-               disabled={uploading}
+               // disabled={uploading}
                onClick={handleImageSubmit}
               className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'
             >
-              {uploading ? 'UpLoading...' : 'Upload'}
+              Upload
             </button>
           </div>
-          <p className='text-red-700 text-sm'>
-            {imageUploadError && imageUploadError}
-          </p>
-          {formData.imageUrls.length > 0 &&
-            formData.imageUrls.map((url, index) => (
-              <div
-                key={url}
-                className='flex justify-between p-3 border items-center'
-              >
-                <img
-                  src={url}
-                  alt='listing image'
-                  className='w-20 h-20 object-contain rounded-lg'
-                />
-                <button
-                  type='button'
-                  onClick={() => handleRemoveImage(index)}
-                  className='p-3 text-red-700 rounded-lg uppercase hover:opacity-75'
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
           <button
             className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
           >
             Create Listing
           </button>
-          {error && <p className='text-red-700 text-sm'>{error}</p>}
+          
         </div>        
       </form>
     </main>
