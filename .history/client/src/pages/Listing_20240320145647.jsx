@@ -42,19 +42,7 @@ function Listing() {
       )}
       {listing && !loading && !error && (
         <div>
-          <Swiper navigation>
-          {listing.imageUrls.map((url) => (
-              <SwiperSlide key={url}>
-                <div
-                  className='h-[550px]'
-                  style={{
-                    background: `url(${url}) center no-repeat`,
-                    backgroundSize: 'cover',
-                  }}
-                ></div>
-              </SwiperSlide>
-            ))} 
-          </Swiper>
+          
         </div>
       )}
     </main>
