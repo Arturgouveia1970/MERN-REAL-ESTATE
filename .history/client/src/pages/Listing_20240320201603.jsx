@@ -147,7 +147,7 @@ function Listing() {
                 Contact landlord
               </button>
             )}
-            {contact && <Contact listing={listing}/>}
+            {contact && <Contact />}
           </div>
         </div>
       )}
