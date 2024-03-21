@@ -68,7 +68,7 @@ export const getListings = async (req, res, next) => {
     const startIndex = parseInt(req.query.startIndex) || 0;
     let offer = req.query.offer;
 
-    if (offer === undefined || 'false') {
+    if (offer === 'undefined' || 'false') {
       offer = { $in: [false, true] };
     }
 
@@ -90,7 +90,7 @@ export const getListings = async (req, res, next) => {
       type = { $in: ['sale', 'rent'] };
     }
 
-    const searchTerm = req.query.searchTerm || '';
+    const searchTerm = req.query.searchterm || '';
 
     const sort = req.query.sort || 'createdAt';
 

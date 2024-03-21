@@ -90,7 +90,7 @@ export const getListings = async (req, res, next) => {
       type = { $in: ['sale', 'rent'] };
     }
 
-    const searchTerm = req.query.searchTerm || '';
+    const searchTerm = req.query.searcherm || '';
 
     const sort = req.query.sort || 'createdAt';
 

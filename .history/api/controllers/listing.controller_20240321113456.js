@@ -68,7 +68,7 @@ export const getListings = async (req, res, next) => {
     const startIndex = parseInt(req.query.startIndex) || 0;
     let offer = req.query.offer;
 
-    if (offer === undefined || 'false') {
+    if (offer === 'undefined' || 'false') {
       offer = { $in: [false, true] };
     }
 
@@ -89,26 +89,6 @@ export const getListings = async (req, res, next) => {
     if (type === undefined || type === 'all') {
       type = { $in: ['sale', 'rent'] };
     }
-
-    const searchTerm = req.query.searchTerm || '';
-
-    const sort = req.query.sort || 'createdAt';
-
-    const order = req.query.order || 'desc';
-
-    const listings = await Listing.find({
-      name: { $regex: searchTerm, $options: 'i' },
-      offer,
-      furnished,
-      parking,
-      type,
-    })
-      .sort({ [sort]: order })
-      .limit(limit)
-      .skip(startIndex);
-
-    return res.status(200).json(listings);
-
   } catch (error) {
     next(error);
   }
