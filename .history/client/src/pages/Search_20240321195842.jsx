@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ListingItem from "../components/ListingItem";
 
 function Search() {
   const navigate = useNavigate();
@@ -232,12 +231,6 @@ function Search() {
               Loading...
             </p>
           )}
-
-          {!loading &&
-            listings &&
-            listings.map((listing) => (
-              <ListingItem key={listing._id} listing={listing} />
-          ))}
         </div>
       </div>
     </div>

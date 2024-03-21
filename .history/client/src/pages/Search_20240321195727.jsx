@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ListingItem from "../components/ListingItem";
 
 function Search() {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ function Search() {
   const [showMore, setShowMore] = useState(false);
 
   // console.log(sidebarData);
-  console.log(listings)
+  // console.log(listings)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -232,12 +231,6 @@ function Search() {
               Loading...
             </p>
           )}
-
-          {!loading &&
-            listings &&
-            listings.map((listing) => (
-              <ListingItem key={listing._id} listing={listing} />
-          ))}
         </div>
       </div>
     </div>
